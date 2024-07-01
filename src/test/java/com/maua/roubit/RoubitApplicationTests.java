@@ -1,10 +1,10 @@
-package routine.plus.habit.api;
+package com.maua.roubit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiApplicationTests {
+class RoubitApplicationTests {
 
 	@Test
 	void contextLoads() {

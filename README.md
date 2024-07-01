@@ -1,5 +1,8 @@
-# <picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f304/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f304/512.gif" alt="🌄" width="32" height="32"></picture> Routine Plus Habit
+<h1 align="center">Roubit</h1>
 
+<div align="center">
+  <img width="300" height="300" src="https://github.com/alexZ7000/roubit_mss/assets/78627928/e50b9000-4bf4-4b10-b35d-26488b685ae3" alt="roubit" />
+</div>
 
 ## 🤝 Colaboradores
 
