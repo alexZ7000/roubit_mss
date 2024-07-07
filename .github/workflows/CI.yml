@@ -27,8 +27,17 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+    - name: Set environment variables
+      run: echo "APPLICATION_NAME=${{ secrets.APPLICATION_NAME }}" >> $GITHUB_ENV
     - name: Build and test with Maven
       run: mvn -B verify --file pom.xml
+      env:
+        APPLICATION_NAME: ${{ secrets.APPLICATION_NAME }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        JPA_DDL: ${{ secrets.JPA_DDL }}
+        JPA_SHOW_SQL: ${{ secrets.JPA_SHOW_SQL }}
     - name: Upload coverage results
       if: success() && steps.test.outputs.coverage_report != ''
       uses: codecov/codecov-action@v3
