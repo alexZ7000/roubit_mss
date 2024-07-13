@@ -3,88 +3,90 @@ package com.maua.roubit.shared.entities;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.maua.roubit.shared.domain.entities.Users;
+import com.maua.roubit.shared.utils.ValidationUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import jakarta.validation.ConstraintViolation;
 
 import java.util.*;
 import java.sql.Date;
 
 public class UsersTest {
 
+    private final Users globalUser = new Users();
     private Validator validator;
 
     @BeforeEach
     public void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
+
+        final UUID userId = UUID.randomUUID();
+        globalUser.setUserId(userId);
+        globalUser.setProfilePicture("https://profilePic.png");
+        globalUser.setName("John Doe");
+        globalUser.setUsername("johndoe");
+        globalUser.setEmail("johndoe@example.com");
+        globalUser.setPassword("Secure1@password");
+        globalUser.setSemester(1);
+        globalUser.setBalance(100);
+        globalUser.setBirthday(Date.valueOf("2000-01-01"));
+        globalUser.setStreaks(5);
+        globalUser.setTasks(new ArrayList<>());
+        globalUser.setBadgesId(new ArrayList<>());
+        globalUser.setFriendsId(new ArrayList<>());
+        globalUser.setCosmeticsId(new ArrayList<>());
     }
 
     @Test
-    public void testUserEntity() {
-        Users user = new Users();
+    public void testUser() {
+        final Users user = new Users();
 
         UUID userId = UUID.randomUUID();
         user.setUserId(userId);
-        user.setProfilePicture("profilePic.png");
+        user.setProfilePicture("https://profilePic.png");
         user.setName("John Doe");
         user.setUsername("johndoe");
         user.setEmail("johndoe@example.com");
-        user.setPassword("securepassword");
+        user.setPassword("Secure1@password");
         user.setSemester(1);
         user.setBalance(100);
         user.setBirthday(Date.valueOf("2000-01-01"));
         user.setStreaks(5);
         user.setTasks(new ArrayList<>());
-        user.setBadges(new ArrayList<>());
-        user.setFriends(new ArrayList<>());
-        user.setCosmetics(new ArrayList<>());
+        user.setBadgesId(new ArrayList<>());
+        user.setFriendsId(new ArrayList<>());
+        user.setCosmeticsId(new ArrayList<>());
 
         assertEquals(userId, user.getUserId());
-        assertEquals("profilePic.png", user.getProfilePicture());
+        assertEquals("https://profilePic.png", user.getProfilePicture());
         assertEquals("John Doe", user.getName());
         assertEquals("johndoe", user.getUsername());
         assertEquals("johndoe@example.com", user.getEmail());
-        assertEquals("securepassword", user.getPassword());
+        assertEquals("Secure1@password", user.getPassword());
         assertEquals(1, user.getSemester());
         assertEquals(100, user.getBalance());
         assertEquals(Date.valueOf("2000-01-01"), user.getBirthday());
         assertEquals(5, user.getStreaks());
         assertNotNull(user.getTasks());
-        assertNotNull(user.getBadges());
-        assertNotNull(user.getFriends());
-        assertNotNull(user.getCosmetics());
+        assertNotNull(user.getBadgesId());
+        assertNotNull(user.getFriendsId());
+        assertNotNull(user.getCosmeticsId());
     }
 
     @Test
-    public void testUserValidation() {
-        Users user = new Users();
-        user.setUserId(UUID.randomUUID());
-        user.setName("Ale");
-        user.setUsername("jd");
-        user.setEmail("fuedassegmail.c");
-        user.setPassword("");
-        user.setSemester(-1);
-        user.setBalance(-100);
-        user.setStreaks(-5);
+    public void testUserEmailIsNull() {
+        globalUser.setEmail("");
+        Map<String, String> violationMessages = ValidationUtil.validateAndGetViolations(validator, globalUser);
+        assertEquals("E-mail deve ter no mínimo 5 caracteres e no máximo 100 caracteres", violationMessages.get("email"));
+    }
 
-        Set<ConstraintViolation<Users>> violations = validator.validate(user);
-
-        if (violations.isEmpty()) {
-            assertTrue(violations.isEmpty());
-        }
-
-        Map<String, String> violationMessages = new HashMap<>();
-        for (ConstraintViolation<Users> violation : violations) {
-            String propertyPath = violation.getPropertyPath().toString();
-            String message = violation.getMessage();
-            violationMessages.put(propertyPath, message);
-            System.out.println("Campo: " + propertyPath + ", Erro: " + message);
-        }
-
-        assertEquals("deve ser um endereço de e-mail bem formado", violationMessages.get("email"));
+    @Test
+    public void testUserEmailIsInvalid() {
+        globalUser.setEmail("sdghvavudvasd");
+        Map<String, String> violationMessages = ValidationUtil.validateAndGetViolations(validator, globalUser);
+        assertEquals("E-mail inválido", violationMessages.get("email"));
     }
 }

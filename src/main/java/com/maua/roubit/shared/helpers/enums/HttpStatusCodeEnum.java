@@ -21,7 +21,7 @@ public enum HttpStatusCodeEnum {
 
     private final int value;
 
-    HttpStatusCodeEnum(int value) {
+    HttpStatusCodeEnum(final int value) {
         this.value = value;
     }
 

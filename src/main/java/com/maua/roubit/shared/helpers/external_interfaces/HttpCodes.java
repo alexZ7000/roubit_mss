@@ -11,13 +11,13 @@ import java.util.Map;
 public class HttpCodes {
 
     public static class OK extends HttpResponse {
-        public OK(Object body) {
+        public OK(final Object body) {
             super(HttpStatusCodeEnum.OK.getValue(), castToMap(body), null);
         }
     }
 
     public static class Created extends HttpResponse {
-        public Created(Object body) {
+        public Created(final Object body) {
             super(HttpStatusCodeEnum.CREATED.getValue(), castToMap(body), null);
         }
     }
@@ -29,25 +29,25 @@ public class HttpCodes {
     }
 
     public static class BadRequest extends HttpResponse {
-        public BadRequest(Object body) {
+        public BadRequest(final Object body) {
             super(HttpStatusCodeEnum.BAD_REQUEST.getValue(), castToMap(body), null);
         }
     }
 
     public static class InternalServerError extends HttpResponse {
-        public InternalServerError(Object body) {
+        public InternalServerError(final Object body) {
             super(HttpStatusCodeEnum.INTERNAL_SERVER_ERROR.getValue(), castToMap(body), null);
         }
     }
 
     public static class NotFound extends HttpResponse {
-        public NotFound(Object body) {
+        public NotFound(final Object body) {
             super(HttpStatusCodeEnum.NOT_FOUND.getValue(), castToMap(body), null);
         }
     }
 
     public static class Conflict extends HttpResponse {
-        public Conflict(Object body) {
+        public Conflict(final Object body) {
             super(HttpStatusCodeEnum.CONFLICT.getValue(), castToMap(body), null);
         }
     }
@@ -55,9 +55,9 @@ public class HttpCodes {
     @Setter
     @Getter
     public static class RedirectResponse extends HttpResponse {
-        private Map<String, Object> location;
+        private final Map<String, Object> location;
 
-        public RedirectResponse(Map<String, Object> location) {
+        public RedirectResponse(final Map<String, Object> location) {
             super(HttpStatusCodeEnum.REDIRECT.getValue(), null, null);
             this.location = location;
         }
@@ -65,14 +65,14 @@ public class HttpCodes {
     }
 
     public static class Forbidden extends HttpResponse {
-        public Forbidden(Object body) {
+        public Forbidden(final Object body) {
             super(HttpStatusCodeEnum.FORBIDDEN.getValue(), castToMap(body), null);
         }
     }
 
-    protected static Map<String, Object> castToMap(Object body) {
+    protected static Map<String, Object> castToMap(final Object body) {
         if (body instanceof Map<?, ?> rawMap) {
-            Map<String, Object> resultMap = new HashMap<>();
+            final Map<String, Object> resultMap = new HashMap<>();
             for (Map.Entry<?, ?> entry : rawMap.entrySet()) {
                 if (entry.getKey() instanceof String) {
                     resultMap.put((String) entry.getKey(), entry.getValue());

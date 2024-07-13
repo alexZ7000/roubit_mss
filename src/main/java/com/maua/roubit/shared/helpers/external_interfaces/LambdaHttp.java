@@ -10,14 +10,14 @@ import java.util.Map;
 public class LambdaHttp {
 
     public static class LambdaHttpResponse extends HttpResponse {
-        public LambdaHttpResponse(Object body, Integer statusCode, Map<String, Object> headers, Map<String, Object> kwargs) {
+        public LambdaHttpResponse(final Object body, final Integer statusCode, final Map<String, Object> headers, final Map<String, Object> kwargs) {
             super(
                     statusCode != null ? statusCode : 200,
                     body != null ? HttpCodes.castToMap(body) : new HashMap<>(),
                     headers != null ? headers : new HashMap<>()
             );
 
-            Map<String, Object> _headers = this.getData();
+            final Map<String, Object> _headers = this.getData();
             _headers.put("Access-Control-Allow-Origin", "*");
 
             if (!Boolean.FALSE.equals(kwargs.get("add_default_cors_headers"))) {
@@ -27,7 +27,7 @@ public class LambdaHttp {
 
 
         public Map<String, Object> toJSON() {
-            Map<String, Object> response = new HashMap<>();
+            final Map<String, Object> response = new HashMap<>();
             response.put("statusCode", this.getStatusCode());
             response.put("body", this.getData().get("body").toString());
             response.put("headers", this.getData().get("headers"));
@@ -48,7 +48,7 @@ public class LambdaHttp {
         private final String sourceIp;
         private final String userAgent;
 
-        public LambdaDefaultHTTP(Map<String, Object> data) {
+        public LambdaDefaultHTTP(final Map<String, Object> data) {
             this.method = data.getOrDefault("method", "").toString();
             this.path = data.getOrDefault("path", "").toString();
             this.protocol = data.getOrDefault("protocol", "").toString();
@@ -56,7 +56,7 @@ public class LambdaHttp {
             this.userAgent = data.getOrDefault("userAgent", "").toString();
         }
 
-        public boolean equals(LambdaDefaultHTTP other) {
+        public boolean equals(final LambdaDefaultHTTP other) {
             return this.method.equals(other.method) &&
                     this.path.equals(other.path) &&
                     this.protocol.equals(other.protocol) &&
@@ -74,7 +74,7 @@ public class LambdaHttp {
         private final Map<String, Object> requestContext;
         private final LambdaDefaultHTTP http;
 
-        public LambdaHttpRequest(Map<String, Object> data) {
+        public LambdaHttpRequest(final Map<String, Object> data) {
             super(safeCastToMap(data.get("body")), safeCastToMap(data.get("headers")), safeCastToMap(data.get("queryStringParameters")));
             this.version = data.get("version").toString();
             this.rawPath = data.get("rawPath").toString();
@@ -84,7 +84,7 @@ public class LambdaHttp {
             this.http = new LambdaDefaultHTTP(safeCastToMap(this.requestContext.get("external_interfaces")));
         }
 
-        private static Map<String, Object> safeCastToMap(Object obj) {
+        private static Map<String, Object> safeCastToMap(final Object obj) {
             if (obj instanceof Map) {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> map = (Map<String, Object>) obj;
@@ -96,7 +96,7 @@ public class LambdaHttp {
     }
 
     public static class HttpResponseRedirect extends HttpResponse {
-        public HttpResponseRedirect(String location) {
+        public HttpResponseRedirect(final String location) {
             super(302, Map.of("Location", location), null);
         }
     }
