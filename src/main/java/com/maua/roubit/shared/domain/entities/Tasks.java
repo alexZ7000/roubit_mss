@@ -11,21 +11,26 @@ public class Tasks {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "task_id", nullable = false, unique = true)
+    @Column(name = "task_id", nullable = false, unique = true, length = 36)
     private UUID taskId;
 
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private AppUser userId;
-    
+    private Users userId;
+
+    @Column(length = 50, nullable = false)
     private String name;
-    @Column(nullable = true)
+
+    @Column()
     private String description;
-    @Column(nullable = true)
+
+    @Column()
     private String image;
-    @Column(nullable = true)
+
+    @Column()
     private Long chronometer;
-    @Column(nullable = true)
+
+    @Column()
     private Long time;
 }

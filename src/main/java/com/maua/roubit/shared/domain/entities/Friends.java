@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "friends")
 @Getter
 @Setter
 public class Friends {
@@ -15,9 +16,9 @@ public class Friends {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private AppUser userId;
+    private Users userId;
 
     @ManyToOne
-    @JoinColumn(name = "request_id")
-    private FriendRequests requestId;
+    @JoinColumn(name = "requests_id")
+    private FriendsRequests requestId;
 }

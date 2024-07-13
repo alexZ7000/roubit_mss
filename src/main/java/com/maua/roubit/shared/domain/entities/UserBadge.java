@@ -12,11 +12,11 @@ public class UserBadge {
     private UserBadgeId id;
     
     @ManyToOne
-    @Column(name = "badge_id")
+    @JoinColumn(name = "badge_id", insertable = false, updatable = false)
     private Badge badgeId;
 
     @ManyToOne
-    @Column(name = "user_id")
-    private AppUser userId;
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private Users userId;
     
 }

@@ -10,9 +10,9 @@ import lombok.*;
 @EqualsAndHashCode
 public class CosmeticBadgeId implements Serializable {
 
-    @Column(name = "cosmetic_id")
+    @Column(name = "cosmetic_id", length = 36)
     private String cosmeticId;
 
-    @Column(name = "badge_id")
+    @Column(name = "badge_id", length = 36)
     private String badgeId;
 }

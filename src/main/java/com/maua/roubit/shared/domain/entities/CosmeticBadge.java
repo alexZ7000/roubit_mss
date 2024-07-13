@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Cosmetic_Badge") 
+@Table(name = "cosmetic_badge")
 @Getter
 @Setter
 public class CosmeticBadge {
@@ -13,10 +13,10 @@ public class CosmeticBadge {
     private CosmeticBadgeId id;
 
     @ManyToOne
-    @JoinColumn(name = "cosmetic_id")
+    @JoinColumn(name = "cosmetic_id", insertable = false, updatable = false)
     private Cosmetics cosmetics;
 
     @ManyToOne
-    @JoinColumn(name = "badge_id")
+    @JoinColumn(name = "badge_id", insertable = false, updatable = false)
     private Badge badge;
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "cosmetics")
 @Getter
 @Setter
 public class Cosmetics {
@@ -14,13 +15,24 @@ public class Cosmetics {
     private UUID cosmeticId;
     
     @ManyToOne
-    @Column(nullable = true)
+    @JoinColumn
     private Badge badge;
-    
+
+    @Column(length = 50)
     private String title;
+
+    @Column()
     private String icon;
+
+    @Column(length = 50)
     private String rarity;
+
+    @Column()
     private String description;
+
+    @Column()
     private Integer price;
+
+    @Column()
     private java.sql.Date date;
 }

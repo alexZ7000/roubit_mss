@@ -13,10 +13,10 @@ public class UserCosmetics {
     private UserCosmeticsId id;
     
     @ManyToOne
-    @Column(name = "user_id")
-    private AppUser userId;
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private Users userId;
     
     @ManyToOne
-    @Column(name = "cosmetic_id")
+    @JoinColumn(name = "cosmetic_id", insertable = false, updatable = false)
     private Cosmetics cosmeticId;
 }

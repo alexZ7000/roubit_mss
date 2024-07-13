@@ -1,13 +1,15 @@
 package com.maua.roubit.shared.domain.entities; 
 
+import com.maua.roubit.shared.domain.enums.FriendsRequestsStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "friend_requests")
 @Getter
 @Setter
-public class FriendRequests {
+public class FriendsRequests {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,16 +17,15 @@ public class FriendRequests {
     private UUID requestId;
     
     @ManyToOne
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @JoinColumn(name = "sender_id", nullable = false)
-    private AppUser senderId;
+    private Users senderId;
     
     @ManyToOne
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @JoinColumn(name = "receiver_id", nullable = false)
-    private AppUser receiver;
-    
-    private String status;
+    private Users receiver;
+
+    @Column(length = 8)
+    private FriendsRequestsStatusEnum status;
     
     @Column(name = "request_date")
     private java.sql.Date requestDate;
