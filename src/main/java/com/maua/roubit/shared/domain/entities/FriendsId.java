@@ -11,10 +11,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class UserBadgeId {
-    @Column(name = "badge_id", insertable = false, updatable = false)
-    private UUID badgeId;
+public class FriendsId {
+    @Column(name = "user1_id", insertable=false, updatable=false)
+    private UUID user1;
 
-    @Column(name = "user_id", insertable = false, updatable = false)
-    private UUID userId;
+    @Column(name = "user2_id", insertable=false, updatable=false)
+    private UUID user2;
 }

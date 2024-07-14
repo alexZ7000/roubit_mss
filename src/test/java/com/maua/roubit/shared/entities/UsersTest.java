@@ -3,7 +3,9 @@ package com.maua.roubit.shared.entities;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.maua.roubit.shared.domain.entities.Users;
-import com.maua.roubit.shared.utils.ValidationUtil;
+import com.maua.roubit.shared.domain.enums.CoursesEnum;
+import com.maua.roubit.shared.utils.validators.domain.entities.UUIDValidator;
+import com.maua.roubit.shared.utils.validators.errors.ValidationUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jakarta.validation.Validation;
@@ -23,7 +25,7 @@ public class UsersTest {
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
 
-        final UUID userId = UUID.randomUUID();
+        final UUID userId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
         globalUser.setUserId(userId);
         globalUser.setProfilePicture("https://profilePic.png");
         globalUser.setName("John Doe");
@@ -34,46 +36,46 @@ public class UsersTest {
         globalUser.setBalance(100);
         globalUser.setBirthday(Date.valueOf("2000-01-01"));
         globalUser.setStreaks(5);
-        globalUser.setTasks(new ArrayList<>());
-        globalUser.setBadgesId(new ArrayList<>());
-        globalUser.setFriendsId(new ArrayList<>());
-        globalUser.setCosmeticsId(new ArrayList<>());
+        globalUser.setCourse(CoursesEnum.DESIGN);
     }
 
     @Test
     public void testUser() {
         final Users user = new Users();
 
-        UUID userId = UUID.randomUUID();
+        UUID userId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
         user.setUserId(userId);
-        user.setProfilePicture("https://profilePic.png");
-        user.setName("John Doe");
-        user.setUsername("johndoe");
-        user.setEmail("johndoe@example.com");
+        user.setProfilePicture("https://github.com/alexZ7000.png");
+        user.setName("Alessandro Lima");
+        user.setUsername("alexZ7000");
+        user.setEmail("alessandrolima@gmail.com");
         user.setPassword("Secure1@password");
-        user.setSemester(1);
         user.setBalance(100);
         user.setBirthday(Date.valueOf("2000-01-01"));
         user.setStreaks(5);
-        user.setTasks(new ArrayList<>());
-        user.setBadgesId(new ArrayList<>());
-        user.setFriendsId(new ArrayList<>());
-        user.setCosmeticsId(new ArrayList<>());
+        user.setSemester(1);
+        user.setCourse(CoursesEnum.CIENCIA_DA_COMPUTACAO);
 
         assertEquals(userId, user.getUserId());
-        assertEquals("https://profilePic.png", user.getProfilePicture());
-        assertEquals("John Doe", user.getName());
-        assertEquals("johndoe", user.getUsername());
-        assertEquals("johndoe@example.com", user.getEmail());
+        assertEquals("https://github.com/alexZ7000.png", user.getProfilePicture());
+        assertEquals("Alessandro Lima", user.getName());
+        assertEquals("alexZ7000", user.getUsername());
+        assertEquals("alessandrolima@gmail.com", user.getEmail());
         assertEquals("Secure1@password", user.getPassword());
-        assertEquals(1, user.getSemester());
         assertEquals(100, user.getBalance());
         assertEquals(Date.valueOf("2000-01-01"), user.getBirthday());
         assertEquals(5, user.getStreaks());
-        assertNotNull(user.getTasks());
-        assertNotNull(user.getBadgesId());
-        assertNotNull(user.getFriendsId());
-        assertNotNull(user.getCosmeticsId());
+        assertEquals(1, user.getSemester());
+        assertEquals(CoursesEnum.CIENCIA_DA_COMPUTACAO, user.getCourse());
+    }
+
+    @Test
+    public void testUserIDIsValid() {
+        String userId = !UUIDValidator.validateUUID(
+                "userId",
+                "123e4567-e89b-12d3-a456-42661417400"
+        ) ? "UUID inválido" : "UUID Válido";
+        assertEquals("UUID inválido", userId);
     }
 
     @Test

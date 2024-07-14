@@ -1,4 +1,4 @@
-package com.maua.roubit.shared.utils;
+package com.maua.roubit.shared.utils.validators.errors;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;

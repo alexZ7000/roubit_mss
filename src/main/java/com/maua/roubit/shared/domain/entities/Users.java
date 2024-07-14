@@ -1,14 +1,16 @@
 package com.maua.roubit.shared.domain.entities;
 
+import com.maua.roubit.shared.domain.enums.CoursesEnum;
+import com.maua.roubit.shared.utils.validators.domain.enums.ValidateEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
 public class Users {
@@ -20,10 +22,10 @@ public class Users {
     private UUID userId;
 
     @Column(name = "profile_picture")
-    @Size(min = 12, max = 255, message = "URL da imagem deve ter no mínimo 12 caracteres e no máximo 255 caracteres")
+    @Size(min = 12, max = 255, message = "Profile Picture deve ter no mínimo 12 caracteres e no máximo 255 caracteres")
     @Pattern(
             regexp = "^https://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/[^ ]*)?$",
-            message = "A URL da imagem deve começar com https:// e seguir o formato esperado."
+            message = "Profile picture deve começar com https:// e seguir o formato esperado."
     )
     private String profilePicture;
 
@@ -60,10 +62,6 @@ public class Users {
     private String password;
 
     @Column()
-    @Positive(message = "Semestre deve ser positivo diferente de 0")
-    private Integer semester;
-
-    @Column()
     @NotNull(message = "Balance não pode ser null")
     @PositiveOrZero(message = "Balance deve ser maior e igual à 0")
     private Integer balance = 0;
@@ -77,20 +75,20 @@ public class Users {
     @PositiveOrZero(message = "Streaks ter que ser maior e igual à 0")
     private Integer streaks = 0;
 
-    @OneToMany
-    private List<Tasks> tasks;
+    @Column()
+    @Positive(message = "Semestre deve ser positivo diferente de 0")
+    private Integer semester;
+
+    @Column()
+    @Enumerated(EnumType.STRING)
+    @ValidateEnum(enumClass = CoursesEnum.class, message = "Curso inválido")
+    private CoursesEnum course;
 
     @ManyToMany
-    @Column(name = "badges_id", nullable = false, unique = true, updatable = false, length = 36)
-    private List<UserBadge> badgesId;
-
-    @ManyToMany
-    @Column(name = "friends_id", nullable = false, unique = true, updatable = false, length = 36)
-    private List<Friends> friendsId;
-
-    @ManyToMany
-    @Column(name = "cosmetics_id", nullable = false, unique = true, updatable = false, length = 36)
-    private List<UserCosmetics> cosmeticsId;
-
-    //FIXME: ARRUMAR BANCO DE DADOS, ATRIBUTO TASKS NÃO EXISTE NO BANCO DE DADOS
+    @JoinTable(
+            name = "friends",
+            joinColumns = @JoinColumn(name = "user1_id"),
+            inverseJoinColumns = @JoinColumn(name = "user2_id")
+    )
+    private Set<Users> friends;
 }

@@ -16,6 +16,7 @@ public class CosmeticBadge {
     @JoinColumn(name = "cosmetic_id", insertable = false, updatable = false)
     private Cosmetics cosmetics;
 
+
     @ManyToOne
     @JoinColumn(name = "badge_id", insertable = false, updatable = false)
     private Badge badge;

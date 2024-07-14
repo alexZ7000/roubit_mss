@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "User_Badge") 
+@Table(name = "user_badge")
 @Getter
 @Setter
 public class UserBadge {
     @EmbeddedId
     private UserBadgeId id;
-    
+
     @ManyToOne
     @JoinColumn(name = "badge_id", insertable = false, updatable = false)
     private Badge badgeId;

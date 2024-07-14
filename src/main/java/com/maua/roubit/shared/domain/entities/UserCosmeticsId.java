@@ -1,18 +1,20 @@
 package com.maua.roubit.shared.domain.entities;
 
-import java.io.Serializable;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.UUID;
 
 @Embeddable
 @Getter
 @Setter
 @EqualsAndHashCode
-public class UserCosmeticsId implements Serializable {
+public class UserCosmeticsId {
+    @Column(name = "user_id", insertable=false, updatable=false)
+    private UUID userId;
 
-    @Column(name = "cosmetic_id")
-    private String cosmeticId;
-
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "cosmetic_id", insertable=false, updatable=false)
+    private UUID cosmeticId;
 }

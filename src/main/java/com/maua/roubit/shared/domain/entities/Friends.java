@@ -3,22 +3,25 @@ package com.maua.roubit.shared.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "friends")
 @Getter
 @Setter
 public class Friends {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "friend_id")
-    private Long friendId;
+    @EmbeddedId
+    private FriendsId id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users userId;
+    @JoinColumn(name = "user1_id", nullable = false)
+    private Users user1;
 
     @ManyToOne
-    @JoinColumn(name = "requests_id")
-    private FriendsRequests requestId;
+    @JoinColumn(name = "user2_id", nullable = false)
+    private Users user2;
+
+    @ManyToOne
+    @JoinColumn(name = "request_id", nullable = false)
+    private FriendsRequests request;
 }
