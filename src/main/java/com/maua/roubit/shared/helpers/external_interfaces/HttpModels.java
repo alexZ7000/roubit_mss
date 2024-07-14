@@ -3,6 +3,7 @@ package com.maua.roubit.shared.helpers.external_interfaces;
 import com.maua.roubit.shared.helpers.enums.HttpStatusCodeEnum;
 import com.maua.roubit.shared.helpers.external_interfaces.ExternalInterface.IRequest;
 import com.maua.roubit.shared.helpers.external_interfaces.ExternalInterface.IResponse;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +15,13 @@ public class HttpModels {
         private final Map<String, Object> body;
         private final Map<String, Object> headers;
         private final Map<String, Object> queryParams;
-        private Map<String, Object> data = new HashMap<>();
+        private final Map<String, Object> data;
 
-        public HttpRequest(Map<String, Object> body, Map<String, Object> headers, Map<String, Object> queryParams) {
+        public HttpRequest(final Map<String, Object> body, final Map<String, Object> headers, final Map<String, Object> queryParams) {
             this.body = body != null ? body : new HashMap<>();
             this.headers = headers != null ? headers : new HashMap<>();
             this.queryParams = queryParams != null ? queryParams : new HashMap<>();
-            Map<String, Object> dataJson = new HashMap<>();
+            final Map<String, Object> dataJson = new HashMap<>();
 
             if (body != null) {
                 dataJson.putAll(body);
@@ -58,18 +59,19 @@ public class HttpModels {
         }
     }
 
+    @Getter
     public static class HttpResponse implements IResponse {
         private final int statusCode;
         private final Map<String, Object> body;
         private final Map<String, Object> headers;
-        private Map<String, Object> data = new HashMap<>();
+        private final Map<String, Object> data;
 
-        public HttpResponse(Integer statusCode, Map<String, Object> body, Map<String, Object> headers) {
+        public HttpResponse(final Integer statusCode, final Map<String, Object> body, final Map<String, Object> headers) {
             this.statusCode = statusCode != null ? statusCode : HttpStatusCodeEnum.OK.getValue();
             this.body = body != null ? body : new HashMap<>();
             this.headers = headers != null ? headers : new HashMap<>();
 
-            Map<String, Object> dataJson = new HashMap<>();
+            final Map<String, Object> dataJson = new HashMap<>();
             if (body != null) {
                 dataJson.putAll(body);
             }
@@ -77,16 +79,6 @@ public class HttpModels {
             assert headers != null;
             dataJson.putAll(headers);
             this.data = dataJson;
-        }
-
-        @Override
-        public int getStatusCode() {
-            return statusCode;
-        }
-
-        @Override
-        public Map<String, Object> getData() {
-            return data;
         }
 
         @Override

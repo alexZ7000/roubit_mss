@@ -29,6 +29,7 @@ jobs:
         DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         JPA_DDL: ${{ secrets.JPA_DDL }}
         JPA_SHOW_SQL: ${{ secrets.JPA_SHOW_SQL }}
+        JPA_OPEN_IN_VIEW: ${{ secrets.JPA_OPEN_IN_VIEW }}
     - name: Upload coverage results
       if: success() && steps.test.outputs.coverage_report != ''
       uses: codecov/codecov-action@v3

@@ -2,12 +2,12 @@ package com.maua.roubit.shared.helpers.external_interfaces;
 
 import java.util.Map;
 
-public class ExternalInterface {
-    public interface IRequest {
+class ExternalInterface {
+    protected interface IRequest {
         Map<String, Object> getData();
     }
 
-    public interface IResponse {
+    protected interface IResponse {
         int getStatusCode();
         Map<String, Object> getData();
     }
