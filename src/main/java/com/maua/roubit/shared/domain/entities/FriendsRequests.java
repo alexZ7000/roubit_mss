@@ -33,13 +33,12 @@ public class FriendsRequests {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @Size(min = 8, max = 8, message = "Friend Status pode ter no máximo 8 caracteres")
-    @NotBlank(message = "Friend Status não pode estar em branco")
+    @NotNull(message = "Friend Status não pode estar em branco")
     @ValidateEnum(enumClass = FriendsRequestsStatusEnum.class, message = "Friend Status de tipo inválido")
     private FriendsRequestsStatusEnum status = FriendsRequestsStatusEnum.PENDENTE;
     
     @Column(name = "request_date", nullable = false)
-    @NotBlank(message = "Data de pedido de amizade não pode estar em branco")
+    @NotNull(message = "Data de pedido de amizade não pode estar em branco")
     @PastOrPresent(message = "Data de pedido de amizade deve estar no presente ou no passado")
     private java.sql.Date requestDate;
 }
