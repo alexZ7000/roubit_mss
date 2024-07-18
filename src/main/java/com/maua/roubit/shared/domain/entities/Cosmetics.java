@@ -31,7 +31,7 @@ public class Cosmetics {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Cosmetics rarity não pode estar em branco")
+    @NotNull(message = "Cosmetics rarity não pode ser null")
     @ValidateEnum(enumClass = RarityEnum.class, message = "Cosmetics rarity de tipo inválido")
     private RarityEnum rarity;
 

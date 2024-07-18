@@ -28,6 +28,7 @@ public class Tasks {
 
     @Column(length = 50, nullable = false)
     @NotBlank(message = "Task name não pode estar em branco")
+    @Size(max = 50, message = "Task name pode ter no máximo 50 caracteres")
     private String name;
 
     @Column()
