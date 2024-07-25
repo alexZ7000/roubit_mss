@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
- // JpaRepository oferece métodos padrão para operações de bd
+    // JpaRepository oferece métodos padrão para operações de bd
 
-public interface UserRepoInterface extends JpaRepository<Users, UUID> {
+    public interface UserRepoInterface extends JpaRepository<Users, UUID> {
 
     // Métodos Adicionais Específicos
 
